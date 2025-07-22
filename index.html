@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wellness Reminders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daily Wellness Reminders</h1>
+            <p class="subtitle">Let me take care of you with loving reminders throughout your day 💝</p>
+        </header>
+
+        <main>
+            <form id="registrationForm" class="registration-form">
+                <div class="form-group">
+                    <label for="name">Your Name or Nickname (Optional)</label>
+                    <input type="text" id="name" name="name" placeholder="What should I call you?" class="input-field">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Where should I send the reminders?" required class="input-field">
+                </div>
+
+                <button type="submit" class="submit-btn">Start Wellness Journey 🌸</button>
+            </form>
+
+            <div id="message" class="message"></div>
+
+            <section class="reminders-preview">
+                <h2>Your Daily Care Schedule</h2>
+                <div class="reminder-list">
+                    <div class="reminder-item">
+                        <span class="time">10:30 AM</span>
+                        <span class="emoji">🕙</span>
+                        <span class="text">Wake up + hydrate with lemon water</span>
+                    </div>
+                    <div class="reminder-item">
+                        <span class="time">11:00 AM</span>
+                        <span class="emoji">🧘</span>
+                        <span class="text">Light yoga + breathing</span>
+                    </div>
+                    <div class="reminder-item">
+                        <span class="time">11:30 AM</span>
+                        <span class="emoji">🍳</span>
+                        <span class="text">Breakfast + hormone-friendly food</span>
+                    </div>
+                    <!-- More reminders -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with love 💌</p>
+        </footer>
+    </div>
+
+    <script src="/main.js"></script>
+</body>
+</html>

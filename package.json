@@ -1,0 +1,23 @@
+{
+  "name": "wellness-reminders",
+  "version": "1.0.0",
+  "description": "A loving wellness reminder system",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "moment-timezone": "^0.5.43",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.9.9",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
