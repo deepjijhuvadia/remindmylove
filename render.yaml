@@ -25,20 +25,17 @@ services:
       name: data
       mountPath: /data
       sizeGB: 1
-
     # Automatic HTTPS/SSL
     domains:
       - remindmylove.onrender.com
-
     # Scale settings
     scaling:
       minInstances: 1
       maxInstances: 1
       targetMemoryPercent: 80
       targetCPUPercent: 80
-
 databases:
   - name: remindmylove-db
     plan: free
     type: sqlite
-    ipAllowList: [] 
+    ipAllowList: []
