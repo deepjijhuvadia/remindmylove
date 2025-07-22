@@ -14,13 +14,112 @@ const transporter = nodemailer.createTransport({
 });
 
 const reminders = [
-  { time: '10:30', message: 'Wake up + hydrate with lemon water', emoji: '🕙' },
-  { time: '11:00', message: 'Light yoga + breathing', emoji: '🧘' },
-  { time: '11:30', message: 'Breakfast reminder + hormone-friendly food suggestions', emoji: '🍳' },
-  { time: '13:00', message: 'Lunch reminder', emoji: '🍲' },
-  { time: '17:00', message: 'Healthy snack (dry fruits + banana + herbal tea)', emoji: '🍎' },
-  { time: '23:30', message: 'Light dinner + turmeric milk reminder', emoji: '🍛' },
-  { time: '02:00', message: 'Sleep reminder + warm words', emoji: '🌙' }
+  {
+    time: '10:30',
+    message: 'Wake Up + Hydration',
+    emoji: '🌅',
+    details: `
+      • Warm water + lemon
+      • Methi water (1 tsp soaked overnight)
+      
+      Remember: Start your day with positivity! 💫`
+  },
+  {
+    time: '11:00',
+    message: 'Yoga & Breathing Time',
+    emoji: '🧘',
+    details: `
+      Your 30-minute wellness routine:
+      • Butterfly Pose (2 min)
+      • Child's Pose (2 min)
+      • Cobra Pose (2 min)
+      • Kapalabhati (3 rounds)
+      • Anulom Vilom (5 min)
+      
+      Take deep breaths and feel the energy flow! 🌸`
+  },
+  {
+    time: '11:30',
+    message: 'Breakfast Time',
+    emoji: '🍳',
+    details: `
+      Your nourishing breakfast:
+      • Ginger-cinnamon tea
+      • 2 boiled eggs or paneer/tofu scramble
+      • 1 roti or 2 whole grain toast
+      • 1 fruit (papaya/banana/apple)
+      
+      Eat mindfully and enjoy each bite! ✨`
+  },
+  {
+    time: '12:00',
+    message: 'Shower + Prep Time',
+    emoji: '🚿',
+    details: `
+      Self-care time:
+      • Take a refreshing shower
+      • Play light relaxing music
+      • Practice affirmations if desired
+      
+      Get ready for a wonderful day ahead! 💖`
+  },
+  {
+    time: '13:00',
+    message: 'Lunch Time (Pre-Work)',
+    emoji: '🍲',
+    details: `
+      Your balanced lunch:
+      • Brown rice or roti
+      • Dal + spinach or broccoli
+      • Salad: beetroot, carrot, cucumber
+      • Buttermilk or curd
+      
+      Remember to pack your snacks for work:
+      • 5 almonds, 2 walnuts, 2 dates
+      • 1 banana or natural protein bar
+      • Herbal tea (optional)
+      
+      Enjoy your meal! 🌿`
+  },
+  {
+    time: '23:30',
+    message: 'Dinner Time',
+    emoji: '🥘',
+    details: `
+      Light and nurturing dinner:
+      • Light dal khichdi or veggie stir-fry with tofu
+      • Warm turmeric milk with cinnamon
+      
+      Eat mindfully and slowly 💝`
+  },
+  {
+    time: '00:00',
+    message: 'Our Relaxation Time',
+    emoji: '🌙',
+    details: `
+      Time to unwind together:
+      • Keep lights low and calming
+      • Play soft, soothing music
+      • Avoid heavy conversations or work talk
+      
+      Let's enjoy this peaceful moment 💕`
+  },
+  {
+    time: '02:00',
+    message: 'Light Snack + Wind Down',
+    emoji: '🌟',
+    details: `
+      Final nourishment before sleep:
+      • Banana + almond milk
+      • Time for gratitude journal or light chat
+      
+      Remember:
+      • Avoid screens after 1:30 AM
+      • Keep the room dark
+      • Use white noise or calming soundscape if needed
+      
+      Sweet dreams, my love! 💫`
+  }
 ];
 
 const generateWelcomeEmailHTML = (user) => {
@@ -149,7 +248,14 @@ const generateEmailHTML = (user, reminder) => {
           padding: 15px;
           background-color: #fff0f0;
           border-radius: 10px;">
-          ${reminder.emoji} ${reminder.message}
+          ${reminder.emoji} <strong>${reminder.message}</strong>
+          
+          <div style="
+            margin-top: 15px;
+            white-space: pre-line;
+            color: #666;">
+            ${reminder.details}
+          </div>
         </div>
         
         <div style="
@@ -159,6 +265,24 @@ const generateEmailHTML = (user, reminder) => {
           padding: 15px;
           border-left: 4px solid #ff6b6b;">
           "${quote}"
+        </div>
+
+        <div style="
+          margin: 20px 0;
+          padding: 15px;
+          background-color: #ffefef;
+          border-radius: 10px;
+          font-size: 14px;">
+          <strong style="color: #ff6b6b;">Remember to avoid:</strong>
+          <ul style="
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;">
+            <li style="margin: 5px 0;">❌ Cold foods like ice creams or raw smoothies</li>
+            <li style="margin: 5px 0;">❌ Over-caffeinated drinks (limit to 1 coffee/day max)</li>
+            <li style="margin: 5px 0;">❌ Skipping meals or overeating junk food</li>
+            <li style="margin: 5px 0;">❌ Screen exposure right before sleep</li>
+          </ul>
         </div>
         
         <div style="
@@ -210,33 +334,58 @@ const sendEmail = async (user, reminder) => {
 };
 
 const scheduleReminder = (reminder) => {
-  const [hour, minute] = reminder.time.split(':');
-  const cronExpression = `${minute} ${hour} * * *`;
+  const [hour, minute] = reminder.time.split(':').map(num => parseInt(num, 10));
+  // Format: second minute hour day month day-of-week
+  const cronExpression = `0 ${minute} ${hour} * * *`;
+
+  console.log(`Scheduling reminder "${reminder.message}" for ${hour}:${minute.toString().padStart(2, '0')} IST daily`);
 
   cron.schedule(cronExpression, async () => {
     try {
-      const activeUsers = await getActiveUsers();
-      console.log(`\n📬 Processing ${reminder.time} reminder for ${activeUsers.length} active users`);
+      // Get current time in IST
+      const now = moment().tz('Asia/Kolkata');
+      const scheduledTime = moment().tz('Asia/Kolkata').hour(hour).minute(minute).second(0);
       
-      for (const user of activeUsers) {
-        if (user.pause_until && new Date(user.pause_until) > new Date()) {
-          console.log(`⏸️ Skipping paused user: ${user.email} (paused until ${user.pause_until})`);
-          continue;
+      // Only send if we're within 1 minute of scheduled time
+      if (Math.abs(now.diff(scheduledTime, 'minutes')) <= 1) {
+        const activeUsers = await getActiveUsers();
+        console.log(`\n📬 Processing ${reminder.time} reminder for ${activeUsers.length} active users`);
+        
+        for (const user of activeUsers) {
+          if (user.pause_until && new Date(user.pause_until) > new Date()) {
+            console.log(`⏸️ Skipping paused user: ${user.email} (paused until ${user.pause_until})`);
+            continue;
+          }
+          await sendEmail(user, reminder);
         }
-        await sendEmail(user, reminder);
+      } else {
+        console.log(`⏭️ Skipping reminder for ${reminder.time} - Not within scheduled time window`);
       }
     } catch (error) {
       console.error('❌ Error in reminder schedule:', error.message);
     }
   }, {
-    timezone: 'Asia/Kolkata'
+    timezone: 'Asia/Kolkata',
+    scheduled: true,
+    runOnInit: false
   });
 };
 
 const initializeScheduler = () => {
-  reminders.forEach(scheduleReminder);
-  console.log('🚀 Email scheduler initialized with the following reminders:');
-  reminders.forEach(r => console.log(`   ${r.emoji} ${r.time} - ${r.message}`));
+  // Validate all reminder times
+  reminders.forEach(reminder => {
+    const [hour, minute] = reminder.time.split(':').map(num => parseInt(num, 10));
+    if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+      throw new Error(`Invalid time format in reminder: ${reminder.time}`);
+    }
+  });
+
+  console.log('🕒 Initializing scheduler with the following reminders:');
+  reminders.forEach(r => {
+    console.log(`   ${r.emoji} ${r.time} - ${r.message}`);
+    scheduleReminder(r);
+  });
+  console.log('✅ All reminders scheduled successfully in IST timezone');
 };
 
 // Test email connection on startup

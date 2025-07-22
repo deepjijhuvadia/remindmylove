@@ -11,6 +11,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -19,38 +25,47 @@ body {
     color: var(--text-color);
     background: linear-gradient(135deg, #fff5f5 0%, #ffe9e9 100%);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
+    width: 90%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: clamp(1rem, 5vw, 2rem);
 }
 
 header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-weight: 600;
+    line-height: 1.2;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3vw, 1.2rem);
     color: #666;
     font-weight: 300;
 }
 
 .registration-form {
     background: white;
-    padding: 2rem;
+    padding: clamp(1.5rem, 4vw, 2rem);
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.registration-form:hover {
+    transform: translateY(-2px);
 }
 
 .form-group {
@@ -62,47 +77,62 @@ label {
     margin-bottom: 0.5rem;
     color: var(--text-color);
     font-weight: 500;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 .input-field {
     width: 100%;
-    padding: 0.8rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
     border: 2px solid var(--border-color);
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .input-field:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
 }
 
 .submit-btn {
     width: 100%;
-    padding: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
     background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
 }
 
 .message {
-    padding: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
     margin: 1rem 0;
     border-radius: 8px;
     text-align: center;
     display: none;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .message.success {
@@ -119,16 +149,17 @@ label {
 
 .reminders-preview {
     background: white;
-    padding: 2rem;
+    padding: clamp(1.5rem, 4vw, 2rem);
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: clamp(2rem, 5vw, 3rem);
 }
 
 .reminders-preview h2 {
     color: var(--primary-color);
     margin-bottom: 1.5rem;
     text-align: center;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
 }
 
 .reminder-list {
@@ -139,52 +170,238 @@ label {
 .reminder-item {
     display: grid;
     grid-template-columns: auto auto 1fr;
-    gap: 1rem;
+    gap: clamp(0.5rem, 2vw, 1rem);
     align-items: center;
-    padding: 1rem;
+    padding: clamp(0.8rem, 2vw, 1rem);
     background-color: var(--secondary-color);
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .reminder-item:hover {
     transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.1);
 }
 
 .time {
     font-weight: 500;
     color: var(--primary-color);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    white-space: nowrap;
 }
 
 .emoji {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
 
 .text {
     color: var(--text-color);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 footer {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: clamp(2rem, 5vw, 3rem);
     padding: 1rem;
     color: var(--primary-color);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
+.guidelines-preview {
+    background: white;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.guidelines-preview h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+}
+
+.guidelines-preview h3 {
+    color: var(--text-color);
+    margin-bottom: 1.2rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    text-align: center;
+}
+
+.avoid-list {
+    background-color: var(--secondary-color);
+    padding: clamp(1.5rem, 4vw, 2rem);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.avoid-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.avoid-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.1);
+}
+
+.avoid-item:last-child {
+    margin-bottom: 0;
+}
+
+.avoid-item .emoji {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    min-width: 2.5rem;
+    text-align: center;
+}
+
+.avoid-item .text {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: var(--text-color);
+}
+
+.note {
+    background-color: #fff8f8;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.note p {
+    margin-bottom: 0.8rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: var(--text-color);
+}
+
+.note p:last-child {
+    margin-bottom: 0;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+        color: #f0f0f0;
     }
 
-    h1 {
-        font-size: 2rem;
+    .registration-form,
+    .reminders-preview {
+        background: #333;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-field {
+        background: #444;
+        border-color: #555;
+        color: #f0f0f0;
     }
 
     .reminder-item {
+        background-color: #444;
+    }
+
+    .text {
+        color: #f0f0f0;
+    }
+
+    .message.success {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+
+    .message.error {
+        background-color: rgba(244, 67, 54, 0.1);
+    }
+
+    .avoid-item {
+        background-color: #444;
+    }
+
+    .note {
+        background-color: #333;
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+    .reminder-item {
         grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "time time"
+            "emoji text";
+        gap: 0.5rem;
     }
 
     .time {
-        grid-column: 1 / -1;
+        grid-area: time;
+        font-size: 0.9rem;
+    }
+
+    .emoji {
+        grid-area: emoji;
+        font-size: 1.2rem;
+    }
+
+    .text {
+        grid-area: text;
+        font-size: 0.9rem;
+    }
+
+    .input-field, .submit-btn {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+
+    .avoid-item {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .avoid-item .emoji {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 481px) and (max-width: 768px) {
+    .reminder-item {
+        grid-template-columns: auto auto 1fr;
+        gap: 0.8rem;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: none;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+    }
+
+    .registration-form,
+    .submit-btn {
+        display: none;
+    }
+
+    .reminder-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 }
