@@ -2,6 +2,7 @@ services:
   - type: web
     name: remindmylove
     env: node
+    region: singapore
     plan: free
     buildCommand: npm install
     startCommand: node app.js
@@ -17,12 +18,11 @@ services:
       - key: FROM_EMAIL
         sync: false
       - key: DATABASE_PATH
-        value: ./database.sqlite
-
+        value: /data/database.sqlite
     healthCheckPath: /
     autoDeploy: true
     disk:
-      name: sqlite-data
+      name: data
       mountPath: /data
       sizeGB: 1
 
