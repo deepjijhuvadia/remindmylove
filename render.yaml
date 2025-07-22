@@ -18,17 +18,6 @@ services:
       - key: FROM_EMAIL
         sync: false
       - key: DATABASE_PATH
-        value: /data/database.sqlite
+        value: ./database.sqlite
     healthCheckPath: /
     autoDeploy: true
-    disk:
-      name: data
-      mountPath: /data
-      sizeGB: 1
-    domains:
-      - remindmylove.onrender.com
-    scaling:
-      minInstances: 1
-      maxInstances: 1
-      targetMemoryPercent: 80
-      targetCPUPercent: 80
