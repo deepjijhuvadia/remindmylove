@@ -31,6 +31,61 @@
 
             <div id="message" class="message"></div>
 
+            <!-- Google Calendar Connection Section -->
+            <div id="calendarSection" class="calendar-section" style="display: none;">
+                <h2>📅 Connect Your Google Calendar</h2>
+                <p>To automatically create wellness reminder events in your calendar, please connect your Google account:</p>
+                <button id="connectCalendarBtn" class="calendar-btn">🔗 Connect Google Calendar</button>
+                <div id="calendarStatus" class="calendar-status"></div>
+            </div>
+
+            <!-- Schedule Preview Section -->
+            <section class="schedule-preview">
+                <h2>Your Daily Wellness Schedule (IST)</h2>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <div class="time">10:30 AM</div>
+                        <div class="activity">🌅 Wake Up + Hydrate</div>
+                        <div class="details">Warm water + lemon, methi water, sunlight, gentle stretches</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11:00 AM</div>
+                        <div class="activity">🧘 Yoga & Breathing</div>
+                        <div class="details">Butterfly pose, Cat-Cow, Cobra pose, Surya Namaskar ×4</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11:30 AM</div>
+                        <div class="activity">🍳 Breakfast</div>
+                        <div class="details">Ginger-cinnamon tea, eggs/paneer/tofu, toast/roti, fruit</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">1:00 PM</div>
+                        <div class="activity">🍲 Lunch</div>
+                        <div class="details">Brown rice/roti, dal + spinach/broccoli, salad, buttermilk</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">5:00 PM</div>
+                        <div class="activity">🥜 Snack</div>
+                        <div class="details">Almonds, walnuts, dates, banana/protein bar, herbal tea</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">11:30 PM</div>
+                        <div class="activity">🥘 Dinner</div>
+                        <div class="details">Light dal khichdi/veggie stir fry, turmeric milk</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="time">2:00 AM</div>
+                        <div class="activity">🌙 Sleep Wind-Down</div>
+                        <div class="details">Banana + almond milk, low light, gratitude journal</div>
+                    </div>
+                </div>
+                
+                <div class="grocery-reminder">
+                    <h3>🛒 Grocery Reminders</h3>
+                    <p>Every 2 days at 11:00 AM IST, you'll receive a complete grocery list with all healthy essentials!</p>
+                </div>
+            </section>
+
             <section class="guidelines-preview">
                 <h2>Important Guidelines for Your Wellness Journey</h2>
                 <div class="avoid-list">
@@ -55,6 +110,16 @@
                 <div class="note">
                     <p>💌 You'll receive personalized reminders throughout the day with detailed instructions and loving messages.</p>
                     <p>🌟 Each reminder will include specific meal suggestions, wellness activities, and caring notes.</p>
+                    <p>📅 All reminders will be automatically added to your Google Calendar with 10-minute popup notifications!</p>
+                </div>
+            </section>
+
+            <!-- Additional Actions Section -->
+            <section class="additional-actions">
+                <h2>Manage Your Wellness Journey</h2>
+                <div class="action-buttons">
+                    <button id="pauseBtn" class="action-btn pause-btn">⏸️ Pause Reminders</button>
+                    <button id="unsubscribeBtn" class="action-btn unsubscribe-btn">🚫 Unsubscribe</button>
                 </div>
             </section>
         </main>

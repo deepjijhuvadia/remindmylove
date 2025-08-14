@@ -13,6 +13,9 @@ const initializeDatabase = () => {
         timezone TEXT DEFAULT 'Asia/Kolkata',
         is_active BOOLEAN DEFAULT 1,
         pause_until DATETIME,
+        access_token TEXT,
+        refresh_token TEXT,
+        calendar_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `, (err) => {
@@ -30,6 +33,32 @@ const createUser = (name, email) => {
       function(err) {
         if (err) reject(err);
         else resolve(this.lastID);
+      }
+    );
+  });
+};
+
+const updateGoogleTokens = (email, accessToken, refreshToken, calendarId) => {
+  return new Promise((resolve, reject) => {
+    db.run(
+      'UPDATE users SET access_token = ?, refresh_token = ?, calendar_id = ? WHERE email = ?',
+      [accessToken, refreshToken, calendarId, email],
+      (err) => {
+        if (err) reject(err);
+        else resolve();
+      }
+    );
+  });
+};
+
+const getUserByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    db.get(
+      'SELECT * FROM users WHERE email = ?',
+      [email],
+      (err, row) => {
+        if (err) reject(err);
+        else resolve(row);
       }
     );
   });
@@ -80,6 +109,8 @@ const unsubscribeUser = (email) => {
 module.exports = {
   initializeDatabase,
   createUser,
+  updateGoogleTokens,
+  getUserByEmail,
   getActiveUsers,
   togglePause,
   unsubscribeUser

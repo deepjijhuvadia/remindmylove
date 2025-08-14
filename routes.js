@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const path = require('path');
-const { createUser, togglePause, unsubscribeUser } = require('./user');
+const { createUser, togglePause, unsubscribeUser, getUserByEmail } = require('./user');
 const { sendWelcomeEmail } = require('./emailService');
 
 const router = express.Router();
@@ -31,8 +31,8 @@ router.post('/register', [
     res.json({ 
       message: welcomeEmailSent 
         ? "Welcome aboard! 🌸 Check your email for a special greeting!" 
-        : "You're signed up for loving reminders 💖 (Welcome email might be delayed)",
-      userId 
+        : "You're signed up for loving reminders 💖 (Welcome email might be delayed).",
+      userId
     });
   } catch (error) {
     if (error.message.includes('UNIQUE constraint failed')) {
